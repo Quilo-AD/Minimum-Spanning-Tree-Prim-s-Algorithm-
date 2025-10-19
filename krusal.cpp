@@ -9,7 +9,7 @@
 
 using namespace std;
 
-// Disjoint Set / Union-Find structure
+// Disjoint Set / Union Find structure
 class DisjointSet {
     vector<int> parent, rank;
 public:
