@@ -6,7 +6,7 @@
 #include <set>
 using namespace std;
 
-// Generate synthetic weighted undirected graph and save to file.
+// Generate synthetic weighted undirected graph and save to file
 void generateGraph(int n, int m, const string &filename) {
     srand(time(0));
     set<pair<int, int>> edges;
@@ -41,8 +41,8 @@ int main() {
     int m_sparse = 2 * n;         // sparse graph (~2 edges per node)
     int m_dense = n * (n - 1) / 4; // dense graph (~half of full)
 
-    generateGraph(n, m_sparse, n+"sparse_graph.txt");
-    generateGraph(n, m_dense, n+"dense_graph.txt");
+    generateGraph(n, m_sparse, "sparse_graph.txt");
+    generateGraph(n, m_dense, "dense_graph.txt");
 
     return 0;
 }
