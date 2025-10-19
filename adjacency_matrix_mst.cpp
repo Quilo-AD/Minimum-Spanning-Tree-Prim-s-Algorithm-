@@ -88,7 +88,7 @@ void primMST(const vector<vector<int>> &graph, const vector<string> &indexToNode
 
     // Loop to construct MST with V-1 edges
     for (int count = 0; count < V - 1; count++) {
-        int u = minKey(key, mstSet);    // Pick min key vertex not yet included
+        int u = minKey(key, mstSet);    // Pick minimum key vertex not yet included
         if (u == -1) {
             cout << "Warning: Graph appears disconnected — MST covers only reachable vertices.\n";
             break;
