@@ -6,7 +6,7 @@
 #include <set>
 using namespace std;
 
-// Generate synthetic weighted undirected graph and save to file
+// Generate synthetic weighted undirected graph and save to file.
 void generateGraph(int n, int m, const string &filename) {
     srand(time(0));
     set<pair<int, int>> edges;
