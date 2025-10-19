@@ -9,7 +9,7 @@
 
 using namespace std;
 
-// Disjoint Set / Union Find structure
+// Disjoint Set / Union-Find structure
 class DisjointSet {
     vector<int> parent, rank;
 public:
@@ -105,7 +105,7 @@ int main() {
     auto end = chrono::high_resolution_clock::now();
 
     chrono::duration<double> elapsed = end - start;
-    cout << "Elapsed time: " << elapsed.count() << " seconds\n";
+    cout << "Elapsed time: " << elapsed.count() << " s\n";
 
     return 0;
 }
