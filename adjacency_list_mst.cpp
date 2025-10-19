@@ -79,7 +79,7 @@ int main() {
     cout<<"enter file name: ";
     cin>>filename;
     ifstream input(filename);
-    //Make sure file contains three columns , starting node, ending node and weight of the edge
+    //Make sure the file contains three columns , starting node, ending node and weight of the edge
     if (!input.is_open()) {
         cerr << "Failed to open file." << endl;
         return 1;
