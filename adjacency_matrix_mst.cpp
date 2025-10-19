@@ -11,40 +11,20 @@
 
 using namespace std;
 
-// Helper function to find the vertex with minimum key value not yet included in MST
-int minKey(const vector<int> &key, const vector<bool> &mstSet) {
-    int minVal = INT_MAX;
-    int min_index = -1;
-
-    for (int v = 0; v < static_cast<int>(mstSet.size()); v++) {
-        if (!mstSet[v] && key[v] < minVal) {
-            minVal = key[v];
-            min_index = v;
-        }
-    }
-    return min_index;
-}
-
-// Function to print edges of the MST with their weights
-void printMST(const vector<int> &parent, const vector<vector<int>> &graph, const vector<string> &indexToNode) {
-    cout << "Edge \tWeight\n";
-    for (int i = 1; i < (int)graph.size(); i++) {
-        if (parent[i] != -1 && graph[parent[i]][i] != -1) {
-            cout << indexToNode[parent[i]] << " - " << indexToNode[i] << " \t" << graph[parent[i]][i] << "\n";
-        }
-    }
-}
-
 // Function to verify MST connectivity using adjacency matrix and BFS traversal
 void verifyConnectivityWithMatrix(const vector<int> &parent, const vector<vector<int>> &graph) {
     int V = (int)graph.size();
 
     // Construct MST adjacency matrix from parent array
     vector<vector<int>> mstMatrix(V, vector<int>(V, -1));
+    int totalWeight = 0;
+    int edgeCount = 0;
     for (int i = 1; i < V; i++) {
         if (parent[i] != -1) {
             mstMatrix[i][parent[i]] = graph[i][parent[i]];
             mstMatrix[parent[i]][i] = graph[parent[i]][i];
+            totalWeight += graph[i][parent[i]];
+            edgeCount++;
         }
     }
 
@@ -73,8 +53,39 @@ void verifyConnectivityWithMatrix(const vector<int> &parent, const vector<vector
             break;
         }
     }
+
+    // Print detailed MST verification results
+    cout << "\nMST Verification:\n";
+    cout << "Total number of edges in MST: " << edgeCount << endl;
+    cout << "Total weight of MST: " << totalWeight << endl;
     cout << "All vertices connected? " << (allConnected ? "Yes" : "No") << endl;
 }
+
+
+// Helper function to find the vertex with minimum key value not yet included in MST
+int minKey(const vector<int> &key, const vector<bool> &mstSet) {
+    int minVal = INT_MAX;
+    int min_index = -1;
+
+    for (int v = 0; v < static_cast<int>(mstSet.size()); v++) {
+        if (!mstSet[v] && key[v] < minVal) {
+            minVal = key[v];
+            min_index = v;
+        }
+    }
+    return min_index;
+}
+
+// Function to print edges of the MST with their weights
+void printMST(const vector<int> &parent, const vector<vector<int>> &graph, const vector<string> &indexToNode) {
+    cout << "Edge \tWeight\n";
+    for (int i = 1; i < (int)graph.size(); i++) {
+        if (parent[i] != -1 && graph[parent[i]][i] != -1) {
+            cout << indexToNode[parent[i]] << " - " << indexToNode[i] << " \t" << graph[parent[i]][i] << "\n";
+        }
+    }
+}
+
 
 // Prim's algorithm implementation for MST using adjacency matrix
 void primMST(const vector<vector<int>> &graph, const vector<string> &indexToNode) {
@@ -88,7 +99,7 @@ void primMST(const vector<vector<int>> &graph, const vector<string> &indexToNode
 
     // Loop to construct MST with V-1 edges
     for (int count = 0; count < V - 1; count++) {
-        int u = minKey(key, mstSet);    // Pick minimum key vertex not yet included
+        int u = minKey(key, mstSet);    // Pick min key vertex not yet included
         if (u == -1) {
             cout << "Warning: Graph appears disconnected — MST covers only reachable vertices.\n";
             break;
